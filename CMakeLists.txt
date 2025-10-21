@@ -2,6 +2,25 @@ cmake_minimum_required(VERSION 3.17)
 
 project(tri)
 
-add_executable(${PROJECT_NAME} gl.c main.c)
+find_package(OpenGL REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} GL dl glfw)
+add_executable(
+	${PROJECT_NAME} 
+	src/main.c
+	src/gl.c
+	src/shaders
+	src/utils/file_utils.c
+)
+
+target_include_directories(
+	${PROJECT_NAME}
+	PRIVATE
+	inc
+)
+
+target_link_libraries(
+	${PROJECT_NAME}
+	OpenGL::GL
+       	dl
+       	glfw
+)
