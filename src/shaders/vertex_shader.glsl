@@ -7,5 +7,5 @@ out vec4 vertex_color;
 
 void main() {
 	gl_Position = vec4(aPos, 1.0f);
-	vertex_color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	vertex_color = vec4(aColor.r, aColor.g, aColor.b, aColor.a);
 }

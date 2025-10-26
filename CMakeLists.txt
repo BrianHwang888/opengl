@@ -10,6 +10,7 @@ add_executable(
 	src/gl.c
 	src/shaders
 	src/utils/file_utils.c
+	src/mesh.c
 )
 
 target_include_directories(

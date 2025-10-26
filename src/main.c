@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "file_utils.h"
+#include "mesh.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
@@ -86,20 +87,7 @@ int main() {
 	
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	float t[] = {
-		-0.5f, -0.5f, 0.0f,
-		0.0f, 0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f
-	};
-	
-	unsigned int VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(t) * sizeof(t)/sizeof(t[0]), &t[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	struct mesh* triangle = create_equilateral_triangle();
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	while(!glfwWindowShouldClose(window)) {
@@ -107,11 +95,12 @@ int main() {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shader);
-		glBindVertexArray(VAO);	
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		draw(triangle);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+	delete_mesh(triangle);
+	free(triangle);
 	glDeleteProgram(shader);
 	glfwTerminate();
 	return EXIT_SUCCESS;
