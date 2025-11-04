@@ -2,7 +2,7 @@
 #define MESH_H
 
 struct mesh {
-	unsigned int VBO, VAO, vertex_count;
+	unsigned int EBO, VBO, VAO, vertex_count;
 };
 
 struct mesh* create_equilateral_triangle();
