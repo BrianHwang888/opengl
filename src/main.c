@@ -88,6 +88,7 @@ int main() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	struct mesh* triangle = create_equilateral_triangle();
+	struct mesh* quad = create_quad();
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	while(!glfwWindowShouldClose(window)) {
@@ -95,7 +96,8 @@ int main() {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shader);
-		draw(triangle);
+		//draw(triangle);
+		draw(quad);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
