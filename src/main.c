@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "file_utils.h"
+#include "material.h"
 #include "mesh.h"
 
 #define WINDOW_WIDTH 800
@@ -89,6 +90,16 @@ int main() {
 
 	struct mesh* triangle = create_equilateral_triangle();
 	struct mesh* quad = create_quad();
+	
+	struct material* potato = create_material("img/Patates.jpg");
+	struct material* mask = create_material("img/mask.jpg");
+
+	glUseProgram(shader);
+	glUniform1i(glGetUniformLocation(shader, "potato"), 0);
+	glUniform1i(glGetUniformLocation(shader, "mask"), 1);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	while(!glfwWindowShouldClose(window)) {
@@ -97,12 +108,18 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shader);
 		//draw(triangle);
+		use(potato, 0);
+		use(mask, 1);
 		draw(quad);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 	delete_mesh(triangle);
 	free(triangle);
+	delete_material(potato);
+	free(potato);
+	delete_material(mask);
+	free(mask);
 	glDeleteProgram(shader);
 	glfwTerminate();
 	return EXIT_SUCCESS;

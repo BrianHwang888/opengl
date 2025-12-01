@@ -11,6 +11,7 @@ add_executable(
 	src/shaders
 	src/utils/file_utils.c
 	src/mesh.c
+	src/material.c
 )
 
 target_include_directories(
@@ -24,4 +25,5 @@ target_link_libraries(
 	OpenGL::GL
        	dl
        	glfw
+	m
 )
